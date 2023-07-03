@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class = header>
+        <input type="text" id="searchInput" placeholder="Từ khóa tìm kiếm">
+        <button id="btn">Search</button>
+        <button id="research">Research</button>
+    </div>
+    <div id="main">
+        
+        
+    </div>
+    
+    <script>
+
+        
+        let research = document.getElementById('research');
+        // let promtEle = prompt("search");
+        // console.log(searchInput)
+        
+        var btn = document.getElementById('btn');
+        let main = document.getElementById('main');
+
+        btn.addEventListener('click', function(){
+            let searchInput = document.getElementById('searchInput').value;
+            fetch(`http://api.giphy.com/v1/gifs/search?q=${searchInput}&api_key=wMTu74tyQIiJIYbdB5du7GmLfd2tVadP`).then(res => {
+            return res.json().then (res => {
+                let resData = res.data;
+                resData.forEach(element => {
+                   let urlImage = element.images.original.url
+                   let test = `<img src="${urlImage}"></img>`
+                //    console.log(test)
+                    let newEle = document.createElement ('div')
+                    newEle.innerHTML = test;
+                    document.body.appendChild(newEle);
+    
+                //    let test = `<img src="${urlImage}" alt="">`
+                //   document.getElementById('main').innerHTML = test;  
+                    
+                    
+                });
+
+            })
+
+        }).catch(err => console.log(err)).then(res => {
+            
+        })
+        })
+
+        research.addEventListener('click', function(){
+            window.location.reload()
+        }) 
+        
+    </script>
+</body>
+</html>
